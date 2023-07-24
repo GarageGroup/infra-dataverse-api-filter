@@ -1,0 +1,81 @@
+name: .NET
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+  
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+     # Add NuGet Sources
+
+    - name: Create Local NuGet Directory
+      run: mkdir ~/nuget
+
+    - name: Add Local Nuget Source
+      run: dotnet nuget add source ~/nuget
+
+    - name: Add GarageGroup NuGet Source
+      run: >
+        dotnet nuget add source ${{ secrets.GG_NUGET_SOURCE_URL }}
+        -n garage
+        -u ${{ secrets.GG_NUGET_SOURCE_USER_NAME }}
+        -p ${{ secrets.GG_NUGET_SOURCE_USER_PASSWORD }}
+        --store-password-in-clear-text
+
+    # Filter.Value
+
+    - name: Restore Filter.Value
+      run: dotnet restore ./src/*/*/Filter.Value.csproj
+
+    - name: Build Filter.Value
+      run: dotnet build ./src/*/*/Filter.Value.csproj --no-restore  -c Release
+
+    - name: Pack Filter.Value
+      run: dotnet pack ./src/*/*/Filter.Value.csproj --no-restore -o ~/nuget  -c Release
+
+    # Filter.Value.Test
+
+    - name: Restore Filter.Value.Test
+      run: dotnet restore ./src/*/*/Filter.Value.Test.csproj
+
+    - name: Test Filter.Value.Test
+      run: dotnet test ./src/*/*/Filter.Value.Test.csproj --no-restore  -c Release
+
+    # Filter
+
+    - name: Restore Filter
+      run: dotnet restore ./src/*/*/Filter.csproj
+
+    - name: Build Filter
+      run: dotnet build ./src/*/*/Filter.csproj --no-restore  -c Release
+
+    - name: Pack Filter
+      run: dotnet pack ./src/*/*/Filter.csproj --no-restore -o ~/nuget  -c Release
+
+    # Filter.Test
+
+    - name: Restore Filter.Test
+      run: dotnet restore ./src/*/*/Filter.Test.csproj
+
+    - name: Test Filter.Test
+      run: dotnet test ./src/*/*/Filter.Test.csproj --no-restore -o ~/nuget  -c Release
+
+    # Push
+
+    - name: Push Packages
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: >
+        dotnet nuget push "../../../nuget/*.nupkg"
+        -s ${{ secrets.GG_NUGET_SOURCE_URL }}
+        -k ${{ secrets.GG_NUGET_SOURCE_USER_PASSWORD }}
+        --skip-duplicate
