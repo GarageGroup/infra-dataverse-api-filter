@@ -10,8 +10,8 @@ public abstract record class DataverseFilterBase : IDataverseFilter
         =>
         GetQuery();
 
-    [return: NotNullIfNotNull(nameof(filter))]
-    public static implicit operator string?([AllowNull] DataverseFilterBase filter)
+    [return: MaybeNull, NotNullIfNotNull(nameof(filter))]
+    public static implicit operator string([AllowNull] DataverseFilterBase filter)
         =>
         filter?.GetQuery();
 }
