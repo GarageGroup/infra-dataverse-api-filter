@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace GarageGroup.Infra;
 
@@ -18,20 +17,20 @@ partial class DataverseFilterValue
         =>
         Equals(left, right) is false;
 
-    public override bool Equals([NotNullWhen(true)] object? obj)
+    public override bool Equals(object? obj)
         =>
         obj is DataverseFilterValue other && Equals(other);
 
     public bool Equals(DataverseFilterValue? other)
     {
-        if (other is null)
-        {
-            return false;
-        }
-
         if (ReferenceEquals(this, other))
         {
             return true;
+        }
+
+        if (other is null)
+        {
+            return false;
         }
 
         return ValueComparer.Equals(Value, other.Value);
