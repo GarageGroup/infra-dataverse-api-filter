@@ -5,7 +5,7 @@ namespace GarageGroup.Infra.Dataverse.Api.Filter.Value.Test;
 partial class DataverseFilterValueTest
 {
     [Theory]
-    [InlineData(null, "null")]
+    [InlineData(null, NullValue)]
     [InlineData(false, "false")]
     [InlineData(true, "true")]
     public static void FromNullableBooleanConstructor_ExpectActualValueIsEqualToExpectedValue(
@@ -18,7 +18,7 @@ partial class DataverseFilterValueTest
     }
 
     [Theory]
-    [InlineData(null, "null")]
+    [InlineData(null, NullValue)]
     [InlineData(false, "false")]
     [InlineData(true, "true")]
     public static void FromNullableBoolean_ExpectActualValueIsEqualToExpectedValue(
@@ -31,7 +31,7 @@ partial class DataverseFilterValueTest
     }
 
     [Theory]
-    [InlineData(null, "null")]
+    [InlineData(null, NullValue)]
     [InlineData(false, "false")]
     [InlineData(true, "true")]
     public static void FromNullableBooleanImplicit_ExpectActualValueIsEqualToExpectedValue(

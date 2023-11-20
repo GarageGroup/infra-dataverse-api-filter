@@ -6,7 +6,7 @@ namespace GarageGroup.Infra.Dataverse.Api.Filter.Value.Test;
 partial class DataverseFilterValueTest
 {
     [Theory]
-    [InlineData(null, "null")]
+    [InlineData(null, NullValue)]
     [InlineData(TestData.EmptyString, "''")]
     [InlineData(TestData.MixedWhiteSpacesString, "'%09%09+'")]
     [InlineData(TestData.SomeString, "'Some+String'")]
@@ -22,7 +22,7 @@ partial class DataverseFilterValueTest
     }
 
     [Theory]
-    [InlineData(null, "null")]
+    [InlineData(null, NullValue)]
     [InlineData(TestData.EmptyString, "''")]
     [InlineData(TestData.MixedWhiteSpacesString, "'%09%09+'")]
     [InlineData(TestData.SomeString, "'Some+String'")]
@@ -38,7 +38,7 @@ partial class DataverseFilterValueTest
     }
 
     [Theory]
-    [InlineData(null, "null")]
+    [InlineData(null, NullValue)]
     [InlineData(TestData.EmptyString, "''")]
     [InlineData(TestData.MixedWhiteSpacesString, "'%09%09+'")]
     [InlineData(TestData.SomeString, "'Some+String'")]

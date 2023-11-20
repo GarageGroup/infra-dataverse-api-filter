@@ -6,6 +6,8 @@ namespace GarageGroup.Infra.Dataverse.Api.Filter.Value.Test;
 
 public static partial class DataverseFilterValueTest
 {
+    private const string NullValue = "null";
+
     private static DataverseFilterValue InitializeFilterValue(string value)
     {
         const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;

@@ -16,7 +16,6 @@ partial class DataverseLogicalFilterTest
             _ = new DataverseLogicalFilter((DataverseLogicalOperator)(-1), default);
     }
 
-#if NET7_0_OR_GREATER
     [Fact]
     public static void ConstructorWithFilterInitializer_OperatorIsOutOfRange_ExpectArgumentOutOfRangeException()
     {
@@ -30,5 +29,4 @@ partial class DataverseLogicalFilterTest
                 Filters = default
             };
     }
-#endif
 }
