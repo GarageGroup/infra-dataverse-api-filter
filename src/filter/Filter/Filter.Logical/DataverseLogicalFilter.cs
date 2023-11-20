@@ -1,8 +1,6 @@
 using System;
 using System.Text;
-#if NET7_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#endif
 
 namespace GarageGroup.Infra;
 
@@ -10,17 +8,13 @@ public sealed record class DataverseLogicalFilter : DataverseFilterBase
 {
     private readonly string operatorValue;
 
-#if NET7_0_OR_GREATER
     public DataverseLogicalFilter(DataverseLogicalOperator @operator)
     {
         Operator = @operator;
         operatorValue = GetOperatorValue(@operator);
     }
-#endif
 
-#if NET7_0_OR_GREATER
     [SetsRequiredMembers]
-#endif
     public DataverseLogicalFilter(DataverseLogicalOperator @operator, FlatArray<IDataverseFilter> filters)
     {
         Operator = @operator;
@@ -30,11 +24,7 @@ public sealed record class DataverseLogicalFilter : DataverseFilterBase
 
     public DataverseLogicalOperator Operator { get; }
 
-#if NET7_0_OR_GREATER
     public required FlatArray<IDataverseFilter> Filters { get; init; }
-#else
-    public FlatArray<IDataverseFilter> Filters { get; }
-#endif
 
     public override string GetQuery()
     {
