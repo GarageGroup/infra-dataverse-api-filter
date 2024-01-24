@@ -12,10 +12,10 @@ public static partial class DataverseFilterValueTest
     {
         const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-        var constructor = typeof(DataverseFilterValue).GetConstructor(bindingFlags, null, new[] { typeof(string), typeof(int) }, null);
+        var constructor = typeof(DataverseFilterValue).GetConstructor(bindingFlags, null, [typeof(string), typeof(int)], null);
         Debug.Assert(constructor is not null);
 
-        var filterValue = constructor.Invoke(new object[] { value, 0 }) as DataverseFilterValue;
+        var filterValue = constructor.Invoke([value, 0]) as DataverseFilterValue;
         Debug.Assert(filterValue is not null);
 
         return filterValue;
