@@ -1,24 +1,22 @@
-using System.Collections.Generic;
+using Xunit;
 
 namespace GarageGroup.Infra.Dataverse.Api.Filter.Test;
 
 public static partial class DataverseSetFilterTest
 {
-    public static IEnumerable<object[]> QueryTestData
+    public static TheoryData<DataverseSetFilter, string> QueryTestData
         =>
-        new[]
+        new()
         {
-            new object[]
             {
-                new DataverseSetFilter(
+                new(
                     "SomeField",
                     DataverseSetOperator.In,
                     default),
                 string.Empty
             },
-            new object[]
             {
-                new DataverseSetFilter(
+                new(
                     "Some Field",
                     DataverseSetOperator.In,
                     new[]
@@ -27,9 +25,8 @@ public static partial class DataverseSetFilterTest
                     }),
                 "Some+Field eq Some value"
             },
-            new object[]
             {
-                new DataverseSetFilter(
+                new(
                     "SomeField",
                     DataverseSetOperator.In,
                     new[]
@@ -40,17 +37,15 @@ public static partial class DataverseSetFilterTest
                     }),
                 "(SomeField eq One or SomeField eq Two or SomeField eq Three)"
             },
-            new object[]
             {
-                new DataverseSetFilter(
+                new(
                     "SomeField",
                     DataverseSetOperator.NotIn,
                     default),
                 string.Empty
             },
-            new object[]
             {
-                new DataverseSetFilter(
+                new(
                     "SomeField",
                     DataverseSetOperator.NotIn,
                     new[]
@@ -59,9 +54,8 @@ public static partial class DataverseSetFilterTest
                     }),
                 "SomeField ne Some value"
             },
-            new object[]
             {
-                new DataverseSetFilter(
+                new(
                     "Some'Field",
                     DataverseSetOperator.NotIn,
                     new[]

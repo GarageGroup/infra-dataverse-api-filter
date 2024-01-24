@@ -1,24 +1,22 @@
-using System.Collections.Generic;
 using PrimeFuncPack.UnitTest;
+using Xunit;
 
 namespace GarageGroup.Infra.Dataverse.Api.Filter.Test;
 
 public static partial class DataverseLogicalFilterTest
 {
-    public static IEnumerable<object[]> QueryTestData
+    public static TheoryData<DataverseLogicalFilter, string> QueryTestData
         =>
-        new[]
+        new()
         {
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.And,
                     default),
                 string.Empty
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.And,
                     new IDataverseFilter[]
                     {
@@ -27,9 +25,8 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 string.Empty
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.And,
                     new IDataverseFilter[]
                     {
@@ -37,9 +34,8 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 "Some query"
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.And,
                     new IDataverseFilter[]
                     {
@@ -49,9 +45,8 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 "(Some query)"
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.And,
                     new IDataverseFilter[]
                     {
@@ -61,16 +56,14 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 "(Some query1 and Query2 and Query3)"
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.Or,
                     default),
                 string.Empty
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.Or,
                     new IDataverseFilter[]
                     {
@@ -79,9 +72,8 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 string.Empty
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.Or,
                     new IDataverseFilter[]
                     {
@@ -89,9 +81,8 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 "Some query"
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.Or,
                     new IDataverseFilter[]
                     {
@@ -101,9 +92,8 @@ public static partial class DataverseLogicalFilterTest
                     }),
                 "(Some query)"
             },
-            new object[]
             {
-                new DataverseLogicalFilter(
+                new(
                     DataverseLogicalOperator.Or,
                     new IDataverseFilter[]
                     {

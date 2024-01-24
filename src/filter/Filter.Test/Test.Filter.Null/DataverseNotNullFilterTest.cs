@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
 namespace GarageGroup.Infra.Dataverse.Api.Filter.Test;
 
