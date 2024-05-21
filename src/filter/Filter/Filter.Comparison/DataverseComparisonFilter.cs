@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace GarageGroup.Infra;
 
 public sealed record class DataverseComparisonFilter : DataverseFilterBase
@@ -36,17 +34,7 @@ public sealed record class DataverseComparisonFilter : DataverseFilterBase
 
     public override string GetQuery()
         =>
-        new StringBuilder(
-            escapedFieldName)
-        .Append(
-            ' ')
-        .Append(
-            operatorValue)
-        .Append(
-            ' ')
-        .Append(
-            FieldValue.Value)
-        .ToString();
+        string.Format("{0} {1} {2}", escapedFieldName, operatorValue, FieldValue.Value);
 
     public override string ToString()
         =>
