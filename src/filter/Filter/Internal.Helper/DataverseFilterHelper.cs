@@ -1,5 +1,3 @@
 namespace GarageGroup.Infra;
 
-internal static partial class DataverseFilterHelper
-{
-}
+internal static partial class DataverseFilterHelper;

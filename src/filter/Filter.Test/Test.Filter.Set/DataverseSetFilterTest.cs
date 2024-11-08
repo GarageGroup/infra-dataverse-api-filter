@@ -19,22 +19,20 @@ public static partial class DataverseSetFilterTest
                 new(
                     "Some Field",
                     DataverseSetOperator.In,
-                    new[]
-                    {
+                    [
                         DataverseFilterValue.FromRawString("Some value")
-                    }),
+                    ]),
                 "Some+Field eq Some value"
             },
             {
                 new(
                     "SomeField",
                     DataverseSetOperator.In,
-                    new[]
-                    {
+                    [
                         DataverseFilterValue.FromRawString("One"),
                         DataverseFilterValue.FromRawString("Two"),
                         DataverseFilterValue.FromRawString("Three")
-                    }),
+                    ]),
                 "(SomeField eq One or SomeField eq Two or SomeField eq Three)"
             },
             {
@@ -48,22 +46,20 @@ public static partial class DataverseSetFilterTest
                 new(
                     "SomeField",
                     DataverseSetOperator.NotIn,
-                    new[]
-                    {
+                    [
                         DataverseFilterValue.FromRawString("Some value")
-                    }),
+                    ]),
                 "SomeField ne Some value"
             },
             {
                 new(
                     "Some'Field",
                     DataverseSetOperator.NotIn,
-                    new[]
-                    {
+                    [
                         DataverseFilterValue.FromRawString("One"),
                         DataverseFilterValue.FromRawString("Two"),
                         DataverseFilterValue.FromRawString("Three")
-                    }),
+                    ]),
                 "(Some%27Field ne One and Some%27Field ne Two and Some%27Field ne Three)"
             }
         };
