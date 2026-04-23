@@ -3,6 +3,9 @@ name: .NET
 on:
   push:
 
+permissions:
+  contents: read
+
 jobs:
   build:
 
@@ -10,73 +13,32 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
-  
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
+      uses: actions/checkout@v6
 
-     # Add NuGet Sources
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
 
     - name: Create Local NuGet Directory
       run: mkdir ~/nuget
 
-    - name: Add Local Nuget Source
-      run: dotnet nuget add source ~/nuget
+    - name: Restore slnx
+      run: dotnet restore
 
-    - name: Add GarageGroup NuGet Source
-      run: >
-        dotnet nuget add source ${{ vars.GG_NUGET_SOURCE_URL }}
-        -n garage
-        -u ${{ secrets.GG_NUGET_SOURCE_USER_NAME }}
-        -p ${{ secrets.GG_NUGET_SOURCE_USER_PASSWORD }}
-        --store-password-in-clear-text
+    - name: Build slnx
+      run: dotnet build --no-restore -c Release
 
-    # Filter.Value
+    - name: Test slnx
+      run: dotnet test --no-restore -c Release
 
-    - name: Restore Filter.Value
-      run: dotnet restore ./src/*/*/Filter.Value.csproj
-
-    - name: Build Filter.Value
-      run: dotnet build ./src/*/*/Filter.Value.csproj --no-restore  -c Release
-
-    - name: Pack Filter.Value
-      run: dotnet pack ./src/*/*/Filter.Value.csproj --no-restore -o ~/nuget  -c Release
-
-    # Filter.Value.Test
-
-    - name: Restore Filter.Value.Test
-      run: dotnet restore ./src/*/*/Filter.Value.Test.csproj
-
-    - name: Test Filter.Value.Test
-      run: dotnet test ./src/*/*/Filter.Value.Test.csproj --no-restore  -c Release
-
-    # Filter
-
-    - name: Restore Filter
-      run: dotnet restore ./src/*/*/Filter.csproj
-
-    - name: Build Filter
-      run: dotnet build ./src/*/*/Filter.csproj --no-restore  -c Release
-
-    - name: Pack Filter
-      run: dotnet pack ./src/*/*/Filter.csproj --no-restore -o ~/nuget  -c Release
-
-    # Filter.Test
-
-    - name: Restore Filter.Test
-      run: dotnet restore ./src/*/*/Filter.Test.csproj
-
-    - name: Test Filter.Test
-      run: dotnet test ./src/*/*/Filter.Test.csproj --no-restore -o ~/nuget  -c Release
-
-    # Push
+    - name: Pack slnx
+      run: dotnet pack --no-build -o ~/nuget -c Release
 
     - name: Push Packages
       if: ${{ github.ref == 'refs/heads/main' }}
       run: >
-        dotnet nuget push "../../../nuget/*.nupkg"
-        -s ${{ vars.GG_NUGET_SOURCE_URL }}
-        -k ${{ secrets.GG_NUGET_SOURCE_USER_PASSWORD }}
+        dotnet nuget push ~/nuget/*.nupkg
+        -s https://api.nuget.org/v3/index.json
+        -k ${{ secrets.NUGET_SECRET }}
         --skip-duplicate

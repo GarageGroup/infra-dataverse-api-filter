@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/.sln/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/filter-value/">
+    <Project Path="src/filter-value/Filter.Value.Test/Filter.Value.Test.csproj" />
+    <Project Path="src/filter-value/Filter.Value/Filter.Value.csproj" />
+  </Folder>
+  <Folder Name="/filter/">
+    <Project Path="src/filter/Filter.Test/Filter.Test.csproj" />
+    <Project Path="src/filter/Filter/Filter.csproj" />
+  </Folder>
+</Solution>
